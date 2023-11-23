@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>awecourse</title>
+
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <script src='js/anime.js'></script>
+
+</head>
+
+<body>
+
+  <div class="moving-letters">
+    <h1 class="ml10">
+      <span class="text-wrapper">
+        <span class="letters">Airborne Wind Energy</span>
+      </span>
+    </h1>
+    <script>
+    // Wrap every letter in a span
+    $('.ml10 .letters').each(function(){
+      $(this).html($(this).text().replace(/([^\x00-\x80]|\w)/g, "<span class='letter'>$&</span>"));
+    });
+    </script>
+  </div>
+
+  <svg width="1600" height="900">
+
+    <path id="trajectory"
+      d="m 349.98609,249.98728 c 30.10625,-0.0195 60.53065,6.75835 88.9365,20.84655 l 722.16901,358.32446 c 84.1139,41.74355 185.942,19.34803 244.7795,-53.8355 58.8375,-73.18354 58.8384,-177.4453 0,-250.62978 -58.8363,-73.18449 -160.664,-95.58168 -244.7786,-53.83952 L 438.93309,629.14585 c -84.112,41.75722 -185.9481,19.37177 -244.7943,-53.81031 -58.8461,-73.18217 -58.8523,-177.44954 -0.015,-250.63883 38.97088,-48.47693 96.80448,-74.67127 155.8623,-74.70943"
+      style="stroke:none; fill:none;"/>
+
+    <path id="wing"
+      d="m -20.15796,-53.14315 9.32638,53.14420578 -9.32638,53.15499722 24.1169695,3e-5 L 13.28162,0.00648578 3.9590095,-53.14313 Z"
+      style="fill:#00a6d7;fill-opacity:1;stroke:none;"/>
+
+    <path id="wing2"
+      d="m -20.15796,-53.14315 9.32638,53.14420578 -9.32638,53.15499722 24.1169695,3e-5 L 13.28162,0.00648578 3.9590095,-53.14313 Z"
+      style="fill:#00a6d7;fill-opacity:1;stroke:none;"/>
+
+    <path id="wing3"
+      d="m -20.15796,-53.14315 9.32638,53.14420578 -9.32638,53.15499722 24.1169695,3e-5 L 13.28162,0.00648578 3.9590095,-53.14313 Z"
+      style="fill:#00a6d7;fill-opacity:1;stroke:none;"/>
+
+  </svg>
+
+  <div></div>
+
+</body>
+
+<script>
+  var path = anime.path(document.getElementById('trajectory'));
+  var object = document.getElementById('wing');
+  var timeline = anime.timeline();
+  timeline
+    .add({
+      targets: [object],
+      translateX: path('x'), // Follow the x values from the path `Object`
+      translateY: path('y'), // Follow the y values from the path `Object`
+      rotate: path('angle'), // Follow the angle values from the path `Object
+      duration: 2000,
+      loop: false,
+      easing: "easeInOutQuad",
+    })
+    .add({
+      targets: [document.getElementById('wing2')],
+      translateX: [350, 385],
+      translateY: [250, 250],
+      opacity: [0, 1],
+      easing: "easeOutElastic",
+      offset: '-=100',
+    })
+    .add({
+      targets: [document.getElementById('wing3')],
+      translateX: [385, 420],
+      translateY: [250, 250],
+      opacity: [0, 1],
+      easing: "easeOutElastic",
+      offset: '-=800',
+    })
+    .add({
+      targets: '.ml10 .letter',
+      rotateY: [-90, 0],
+      duration: 1300,
+      offset: '-=800',
+      delay: function(el, i) {
+        return 45 * i;
+      }
+    })
+</script>
+
+</html>
